@@ -1,0 +1,27 @@
+Bài toán
+•	Nhận diện cảm xúc sinh viên qua các hình ảnh cắt từvideo trong các buổi học trực tuyến.
+•	Các phương pháp học máy có giám sát truyền thốngyêu cầu gán nhãn thủ công nhiều, không áp dụng tốtcho sinh viên, môn học, môi trường mới.
+•	Các mô hình thị giác-ngôn ngữ (VLM) với zero-shotprompting có thể tổng quát tốt hơn và hạn chế việcdán nhãn thủ công.
+•	Dựa trên paper:
+https://arxiv.org/pdf/2506.10334v1
+Mục tiêu
+•	Nhận dạng trạng thái cảm xúc / tâm lý của học sinh trong môi trường “in the wild” — tức từ video chụp trong môi trường thực (không phòng thí nghiệm, ánh sáng / nền / góc máy thay đổi), như nhà/ phòng học, để phản ánh đúng hành vi thật của học sinh/sinh viên. 
+•	Hỗ trợ các ứng dụng thực tiễn trong giáo dục, e-learning, giao tiếp người - máy. Ví dụ: theo dõi mức độ tương tác của học sinh, phát hiện chán/ bối rối để điều chỉnh nội dung, xây dựng các hệ thống gia sư thông minh biết “đọc” trạng thái người học.
+•	Phân loại điểm số cảm xúc (0-3) cho 4 cảm xúc: chánnản, hứng thú/tập trung, bối rối, thất vọng; cho từngkhung hình hoặc đoạn video.
+•	Khám phá khả năng của các mô hình VLM zero-shot,tránh việc huấn luyện lại.
+•	Phân tích khả năng tổng quát hóa của mô hình, vàkhả năng thích ứng với sinh viên và bối cảnh mới.
+Mô hình đề xuất
+•	
+•	Input: Các khung hình (frames) được trích xuất từcác đoạn video 10 giây của DAiSEE
+•	Model: Qwen2.5-VL-7B-Instruct
+•	Prompt: Yêu cầu mô hình dự đoán điểm theo thangtừ 0 đến 3 cho 4 cảm xúc: chán nản, hứng thú, bốirối, thất vọng.
+•	Output: Kết quả dạng JSON gồm 4 điểm cảm xúccho mỗi frame.
+Cách đánh giá mô hình
+•	VLM dự đoán điểm số cho cả bốn cảm xúc (chán nản,hứng thú, bối rối, thất vọng) trên từng khung hìnhhoặc clip video.
+•	Độ chính xác / F1 cao cho những cảm xúc có biểucảm khuôn mặt rõ ràng (chán nản, hứng thú)
+•	Thu thập thông tin về các cảm xúc mà VLM gặp khókhăn
+Kết quả mong đợi
+•	
+•	VLM dự đoán điểm số cho cả bốn cảm xúc (chán nản,hứng thú, bối rối, thất vọng) trên từng khung hìnhhoặc clip video.
+•	Độ chính xác / F1 cao cho những cảm xúc có biểucảm khuôn mặt rõ ràng (chán nản, hứng thú)
+•	Thu thập thông tin về các cảm xúc mà VLM gặp khókhăn

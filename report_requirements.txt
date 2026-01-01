@@ -1,0 +1,15 @@
+BƯỚC 1: BÁO CÁO THÍ NGHIỆM (định dạng PDF, chứa số thứ tự nhóm và thông tin tất cả các thành viên)
+Nhóm trưởng được yêu cầu nộp báo cáo thí nghiệm dưới sự ủy nhiệm của cả nhóm. Các báo cáo PHẢI bao gồm các thông tin sau:
++ Liên kết đến mã nguồn (github), với các minh chứng về kết quả thực nghiệm
++ Liên kết đến các tập dữ liệu đã được chưa train/dev/test
++ Giới thiệu về các độ đo đánh giá
++ Giới thiệu về các phương pháp thử nghiệm cho bài toán
++ Hiệu năng của các phương pháp thử nghiệm trên tập dữ liệu và độ đo đã chọn
++ Hàm mục tiêu, hàm mất mát của mô hình
++ Đường học
++ Các siêu tham số của phương pháp
+Hạn nộp báo cáo thí nghiệm CHO TẤT CẢ CÁC NHÓM là 1/1/2026 23:59. Nộp muộn sẽ tính điểm trừ 1 điểm / ngày.
+Bằng việc nộp báo cáo thí nghiệm, các nhóm xác nhận rằng các thông tin cung cấp trong báo cáo thí nghiệm là thống nhất với các thông tin trên slide trình chiếu cũng như báo cáo kĩ thuật cuối cùng. Các nhóm nhận thức được rằng điểm của nhóm sẽ bị 0 điểm nếu sửa đổi các thiết lập và kết quả thí nghiệm SAU KHI nộp báo cáo thí nghiệm.
+BƯỚC 2: SLIDE + BÁO CÁO KĨ THUẬT CUỐI CÙNG (định dạng PDF, chứa số thứ tự nhóm và thông tin các thành viên):
+Đối với slide, hãy mô tả ngắn gọn, cô đọng nhất có thể ĐÓNG GÓP CHÍNH CỦA NHÓM.  Với báo cáo kĩ thuật, trong khi các thí nghiệm và kết quả thí nghiệm cần phải thống nhất với báo cáo đầu tiên và slide, các bạn có cơ hội để trình bày chi tiết phát biểu bài toán, động lực, các phương pháp, phân tích dữ liệu, các chi tiết thí nghiệm và các tài liệu tham chiếu…
+Hạn nộp báo cáo cuối cùng là 18/1/2026 23:59. Nộp muộn sẽ bị trừ điểm 1 điểm/ ngày.
