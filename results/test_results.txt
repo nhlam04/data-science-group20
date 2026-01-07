@@ -1,0 +1,224 @@
+mlp_Frustration_True_512_0.5
+17391.3s	4977	Best model from epoch 1 with Val F1: 0.2127
+17391.7s	4978	
+17391.7s	4979	Test Set Results:
+17391.7s	4980	  Accuracy: 78.08%
+17391.7s	4981	  Precision: 0.1952
+17391.7s	4982	  Recall: 0.2500
+17391.7s	4983	  F1 Score: 0.2192
+17391.7s	4984	
+17391.7s	4985	Confusion Matrix:
+17391.7s	4986	[[1279    0    0    0]
+17391.7s	4987	 [ 280    0    0    0]
+17391.7s	4988	 [  56    0    0    0]
+17391.7s	4989	 [  23    0    0    0]]
+mlp_Confusion_True_512_0.5
+17210.5s	4838	Best model from epoch 1 with Val F1: 0.1987
+17211.2s	4839	
+17211.2s	4840	Test Set Results:
+17211.2s	4841	  Accuracy: 69.29%
+17211.2s	4842	  Precision: 0.1732
+17211.2s	4843	  Recall: 0.2500
+17211.2s	4844	  F1 Score: 0.2047
+17211.2s	4845	
+17211.2s	4846	Confusion Matrix:
+17211.2s	4847	[[1135    0    0    0]
+17211.2s	4848	 [ 368    0    0    0]
+17211.2s	4849	 [ 116    0    0    0]
+17211.2s	4850	 [  19    0    0    0]]
+mlp_Engagement_True_512_0.5
+12496.6s	4698	Best model from epoch 5 with Val F1: 0.2565
+12497.3s	4699	
+12497.3s	4700	Test Set Results:
+12497.3s	4701	  Accuracy: 48.72%
+12497.3s	4702	  Precision: 0.2417
+12497.3s	4703	  Recall: 0.2548
+12497.3s	4704	  F1 Score: 0.2480
+12497.3s	4705	
+12497.3s	4706	Confusion Matrix:
+12497.3s	4707	[[  0   0   3   1]
+12497.3s	4708	 [  0   0  63  18]
+12497.3s	4709	 [  0   0 472 377]
+12497.3s	4710	 [  0   0 378 326]]
+mlp_Boredom_True_512_0.5
+9961.7s	4558	Best model from epoch 50 with Val F1: 0.2578
+9962.5s	4559	
+9962.5s	4560	Test Set Results:
+9962.5s	4561	  Accuracy: 48.84%
+9962.5s	4562	  Precision: 0.3699
+9962.5s	4563	  Recall: 0.2869
+9962.5s	4564	  F1 Score: 0.2441
+9962.5s	4565	
+9962.5s	4566	Confusion Matrix:
+9962.5s	4567	[[695  52   0   0]
+9962.5s	4568	 [423  91   5   0]
+9962.5s	4569	 [294  27  14   0]
+9962.5s	4570	 [ 19   8  10   0]]
+mlp_Frustration_True_512_0
+17420.0s	5067	Best model from epoch 42 with Val F1: 0.2275
+17420.4s	5068	
+17420.4s	5069	Test Set Results:
+17420.4s	5070	  Accuracy: 76.98%
+17420.4s	5071	  Precision: 0.2735
+17420.4s	5072	  Recall: 0.2528
+17420.4s	5073	  F1 Score: 0.2309
+17420.4s	5074	
+17420.4s	5075	Confusion Matrix:
+17420.4s	5076	[[1257   20    2    0]
+17420.4s	5077	 [ 275    3    2    0]
+17420.4s	5078	 [  52    3    1    0]
+17420.4s	5079	 [  22    1    0    0]]
+mlp_Confusion_True_512_0
+17235.7s	4928	Best model from epoch 31 with Val F1: 0.2763
+17236.3s	4929	
+17236.3s	4930	Test Set Results:
+17236.3s	4931	  Accuracy: 69.29%
+17236.3s	4932	  Precision: 0.4062
+17236.3s	4933	  Recall: 0.2671
+17236.3s	4934	  F1 Score: 0.2456
+17236.3s	4935	
+17236.3s	4936	Confusion Matrix:
+17236.3s	4937	[[1101   33    1    0]
+17236.3s	4938	 [ 335   33    0    0]
+17236.3s	4939	 [ 102   13    1    0]
+17236.3s	4940	 [  19    0    0    0]]
+mlp_Engagement_True_512_0
+12514.9s	4788	Best model from epoch 42 with Val F1: 0.3236
+12515.5s	4789	
+12515.5s	4790	Test Set Results:
+12515.5s	4791	  Accuracy: 49.88%
+12515.5s	4792	  Precision: 0.3013
+12515.5s	4793	  Recall: 0.2684
+12515.5s	4794	  F1 Score: 0.2680
+12515.5s	4795	
+12515.5s	4796	Confusion Matrix:
+12515.5s	4797	[[  0   0   4   0]
+12515.5s	4798	 [  2   5  60  14]
+12515.5s	4799	 [  3  14 584 248]
+12515.5s	4800	 [  2   4 470 228]]
+mlp_Boredom_True_512_0
+10067.0s	4648	Best model from epoch 49 with Val F1: 0.3237
+10067.7s	4649	
+10067.7s	4650	Test Set Results:
+10067.7s	4651	  Accuracy: 40.60%
+10067.7s	4652	  Precision: 0.3125
+10067.7s	4653	  Recall: 0.3054
+10067.7s	4654	  F1 Score: 0.2863
+10067.7s	4655	
+10067.7s	4656	Confusion Matrix:
+10067.7s	4657	[[393  69 285   0]
+10067.7s	4658	 [213 110 196   0]
+10067.7s	4659	 [134  39 162   0]
+10067.7s	4660	 [ 10  11  16   0]]
+mlp_Frustration_True_512_0.3
+16413.5s	5048	Best model from epoch 1 with Val F1: 0.2127
+16413.9s	5049	
+16413.9s	5050	Test Set Results:
+16413.9s	5051	  Accuracy: 78.08%
+16413.9s	5052	  Precision: 0.1952
+16413.9s	5053	  Recall: 0.2500
+16413.9s	5054	  F1 Score: 0.2192
+16413.9s	5055	
+16413.9s	5056	Confusion Matrix:
+16413.9s	5057	[[1279    0    0    0]
+16413.9s	5058	 [ 280    0    0    0]
+16413.9s	5059	 [  56    0    0    0]
+16413.9s	5060	 [  23    0    0    0]]
+mlp_Confusion_True_512_0.3
+16250.5s	4909	Best model from epoch 5 with Val F1: 0.2164
+16251.0s	4910	
+16251.0s	4911	Test Set Results:
+16251.0s	4912	  Accuracy: 69.35%
+16251.0s	4913	  Precision: 0.2987
+16251.0s	4914	  Recall: 0.2525
+16251.0s	4915	  F1 Score: 0.2113
+16251.0s	4916	
+16251.0s	4917	Confusion Matrix:
+16251.0s	4918	[[1131    4    0    0]
+16251.0s	4919	 [ 363    5    0    0]
+16251.0s	4920	 [ 115    1    0    0]
+16251.0s	4921	 [  19    0    0    0]]
+mlp_Engagement_True_512_0.3
+11866.5s	4769	Best model from epoch 11 with Val F1: 0.2661
+11867.0s	4770	
+11867.0s	4771	Test Set Results:
+11867.0s	4772	  Accuracy: 50.18%
+11867.0s	4773	  Precision: 0.2478
+11867.0s	4774	  Recall: 0.2605
+11867.0s	4775	  F1 Score: 0.2533
+11867.0s	4776	
+11867.0s	4777	Confusion Matrix:
+11867.0s	4778	[[  0   0   3   1]
+11867.0s	4779	 [  0   0  61  20]
+11867.0s	4780	 [  0   0 517 332]
+11867.0s	4781	 [  0   0 399 305]]
+mlp_Boredom_True_512_0.3
+9558.3s	4629	Best model from epoch 16 with Val F1: 0.3281
+9558.9s	4630	
+9558.9s	4631	Test Set Results:
+9558.9s	4632	  Accuracy: 39.87%
+9558.9s	4633	  Precision: 0.3004
+9558.9s	4634	  Recall: 0.3010
+9558.9s	4635	  F1 Score: 0.2873
+9558.9s	4636	
+9558.9s	4637	Confusion Matrix:
+9558.9s	4638	[[364 120 263   0]
+9558.9s	4639	 [182 138 199   0]
+9558.9s	4640	 [131  53 151   0]
+9558.9s	4641	 [  7   9  21   0]]
+mlp_Frustration_False_512_0.3
+768.6s	1358	Best model from epoch 1 with Val F1: 0.2127
+769.1s	1359	
+769.1s	1360	Test Set Results:
+769.1s	1361	  Accuracy: 78.08%
+769.1s	1362	  Precision: 0.1952
+769.1s	1363	  Recall: 0.2500
+769.1s	1364	  F1 Score: 0.2192
+769.1s	1365	
+769.1s	1366	Confusion Matrix:
+769.1s	1367	[[1279    0    0    0]
+769.1s	1368	 [ 280    0    0    0]
+769.1s	1369	 [  56    0    0    0]
+769.1s	1370	 [  23    0    0    0]]
+mlp_Confusion_False_512_0.3
+615.0s	1221	Best model from epoch 5 with Val F1: 0.2382
+615.7s	1222	
+615.7s	1223	Test Set Results:
+615.7s	1224	  Accuracy: 69.35%
+615.7s	1225	  Precision: 0.2881
+615.7s	1226	  Recall: 0.2686
+615.7s	1227	  F1 Score: 0.2479
+615.7s	1228	
+615.7s	1229	Confusion Matrix:
+615.7s	1230	[[1096   39    0    0]
+615.7s	1231	 [ 328   40    0    0]
+615.7s	1232	 [ 105   11    0    0]
+615.7s	1233	 [  19    0    0    0]]
+mlp_Engagement_False_512_0.3
+466.4s	1084	Best model from epoch 22 with Val F1: 0.2729
+467.1s	1085	
+467.1s	1086	Test Set Results:
+467.1s	1087	  Accuracy: 50.55%
+467.1s	1088	  Precision: 0.2482
+467.1s	1089	  Recall: 0.2595
+467.1s	1090	  F1 Score: 0.2501
+467.1s	1091	
+467.1s	1092	Confusion Matrix:
+467.1s	1093	[[  0   0   4   0]
+467.1s	1094	 [  0   0  67  14]
+467.1s	1095	 [  0   0 569 280]
+467.1s	1096	 [  0   0 445 259]]
+mlp_Boredom_False_512_0.3
+312.7s	947	Best model from epoch 27 with Val F1: 0.3289
+313.5s	948	
+313.5s	949	Test Set Results:
+313.5s	950	  Accuracy: 38.89%
+313.5s	951	  Precision: 0.2851
+313.5s	952	  Recall: 0.2897
+313.5s	953	  F1 Score: 0.2784
+313.5s	954	
+313.5s	955	Confusion Matrix:
+313.5s	956	[[363 139 245   0]
+313.5s	957	 [201 137 181   0]
+313.5s	958	 [136  62 137   0]
+313.5s	959	 [  8  12  17   0]]
