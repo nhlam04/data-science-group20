@@ -1,0 +1,197 @@
+\section{THỰC NGHIỆM VÀ KẾT QUẢ (EXPERIMENTS \& RESULTS)}
+
+\subsection{Liên kết đến mã nguồn và dữ liệu}
+
+\begin{itemize}
+    \item \textbf{Mã nguồn (GitHub):}~\cite{github_repo} \\
+    \url{https://github.com/nhlam04/data-science-group20}
+    \begin{itemize}
+        \item \textit{Kết quả thực nghiệm trong thư mục \texttt{results/} và \texttt{plots/}}
+    \end{itemize}
+    \item \textbf{Tập dữ liệu:}
+    \begin{itemize}
+        \item \textbf{DAiSEE:}~\cite{daisee_dataset} \url{https://people.iith.ac.in/vineethnb/resources/daisee/}
+        \item \textbf{Facial Expression Data:}~\cite{mendeley_facial} \url{https://data.mendeley.com/datasets/6dbdkb8g3d/3}
+    \end{itemize}
+\end{itemize}
+
+\subsection{Thiết lập thực nghiệm}
+
+\subsubsection{Dữ liệu}
+
+\paragraph{Tập dữ liệu DAiSEE}
+Nhóm sử dụng tập dữ liệu DAiSEE với phân chia chuẩn như sau:
+
+\begin{itemize}
+    \item \textbf{Train:} 5,358 samples
+    \item \textbf{Validation:} 1,429 samples
+    \item \textbf{Test:} 1,784 samples
+    \item \textbf{Total:} 8,571 samples
+\end{itemize}
+
+\paragraph{Phân phối lớp trong DAiSEE}
+Dữ liệu DAiSEE có sự mất cân bằng nghiêm trọng giữa các mức độ cảm xúc. Bảng \ref{tab:class_distribution} trình bày phân phối chi tiết cho từng trạng thái cảm xúc trong tập huấn luyện.
+
+\begin{table}[H]
+\centering
+\caption{Phân phối lớp trong tập huấn luyện DAiSEE (5,358 samples)}
+\label{tab:class_distribution}
+\begin{tabular}{|l|r|r|r|r|}
+\hline
+\textbf{Emotion} & \textbf{Level 0} & \textbf{Level 1} & \textbf{Level 2} & \textbf{Level 3} \\
+\hline
+Boredom & 2,433 (45.41\%) & 1,696 (31.65\%) & 1,073 (20.03\%) & 156 (2.91\%) \\
+\hline
+Engagement & 34 (0.63\%) & 213 (3.98\%) & 2,617 (48.84\%) & 2,494 (46.55\%) \\
+\hline
+Confusion & 3,616 (67.49\%) & 1,245 (23.24\%) & 431 (8.04\%) & 66 (1.23\%) \\
+\hline
+Frustration & 4,183 (78.07\%) & 941 (17.56\%) & 191 (3.56\%) & 43 (0.80\%) \\
+\hline
+\end{tabular}
+\end{table}
+
+Như có thể thấy từ bảng trên:
+\begin{itemize}
+    \item \textbf{Boredom:} Tương đối cân bằng hơn, nhưng Level 3 chỉ chiếm 2.91\%.
+    \item \textbf{Engagement:} Tập trung chủ yếu ở Level 2 và 3, trong khi Level 0 và 1 rất hiếm (< 5\%).
+    \item \textbf{Confusion:} Mất cân bằng nghiêm trọng với 67.49\% là Level 0, Level 3 chỉ 1.23\%.
+    \item \textbf{Frustration:} Mất cân bằng nghiêm trọng nhất với 78.07\% là Level 0, Level 3 chỉ 0.80\%.
+\end{itemize}
+
+\paragraph{Dữ liệu tăng cường (Facial Expression Data)}
+Để khắc phục vấn đề mất cân bằng, nhóm đã sử dụng thêm dữ liệu khuôn mặt tĩnh từ Mendeley Facial Expression Dataset:
+
+\begin{table}[H]
+\centering
+\caption{Dữ liệu tăng cường từ Facial Expression Dataset}
+\label{tab:augmentation_data}
+\begin{tabular}{|l|l|r|}
+\hline
+\textbf{Emotion} & \textbf{Source File} & \textbf{Samples} \\
+\hline
+Boredom & boring.csv & 1,931 \\
+\hline
+Engagement & happiness.csv & 593 \\
+\hline
+Confusion & confused.csv & 1,177 \\
+\hline
+Frustration & surprise.csv & 219 \\
+\hline
+\textbf{Total} & & \textbf{3,920} \\
+\hline
+\end{tabular}
+\end{table}
+
+Các ảnh khuôn mặt tĩnh này (kích thước 256×256×3 = 196,608 pixels) được xử lý thông qua Qwen2.5-VL để trích xuất đặc trưng, sau đó được gán nhãn tương ứng với các mức độ cảm xúc của DAiSEE để bổ sung cho tập huấn luyện.
+
+\paragraph{Môi trường thực nghiệm}
+\begin{itemize}
+    \item \textbf{Platform:} Google Colab / Kaggle T4x2 hoặc Local GPU
+    \item \textbf{Framework:} PyTorch
+    \item \textbf{Feature Extraction:} Qwen2.5-VL-7B-Instruct với sampling rate 1 FPS
+\end{itemize}
+
+\subsubsection{Độ đo đánh giá (Evaluation Metrics)}
+Để đánh giá hiệu năng mô hình phân loại cảm xúc trên tập dữ liệu DAiSEE, nhóm sử dụng các độ đo sau:
+
+\begin{enumerate}
+    \item \textbf{Accuracy (Độ chính xác):} Tỷ lệ mẫu được phân loại đúng.
+    \[ \text{Accuracy} = \frac{\text{TP} + \text{TN}}{\text{TP} + \text{TN} + \text{FP} + \text{FN}} \]
+    
+    \item \textbf{Precision (Độ chính xác):} Tỷ lệ mẫu thực sự thuộc lớp dương trong số các mẫu được dự đoán là dương.
+    
+    \item \textbf{Recall (Độ phủ):} Tỷ lệ mẫu dương được phát hiện đúng trên tổng số mẫu dương thực tế.
+    
+    \item \textbf{F1-Score (Macro):} Trung bình điều hòa của Precision và Recall. Nhóm sử dụng \textbf{Macro F1} để đánh giá công bằng giữa các lớp, tránh mô hình chỉ học tốt trên lớp đa số mà bỏ qua lớp thiểu số.
+    \[ F1 = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}} \]
+\end{enumerate}
+
+Do dữ liệu mất cân bằng, \textbf{Accuracy} không phản ánh đúng hiệu năng. Nhóm sử dụng thêm \textbf{Precision, Recall, và F1-Score (Macro Average)} để đánh giá công bằng hơn.
+
+\subsection{Kết quả Baseline: Qwen2.5-VL đầy đủ}
+
+Trước khi huấn luyện bộ phân loại MLP, nhóm đã thử nghiệm với mô hình Qwen2.5-VL đầy đủ (full model) trực tiếp trên tập dữ liệu DAiSEE để đánh giá khả năng zero-shot/few-shot của mô hình. Bảng \ref{tab:baseline_results} trình bày kết quả baseline này.
+
+\begin{table}[H]
+\centering
+\caption{Kết quả Baseline của mô hình Qwen2.5-VL đầy đủ (trước fine-tuning MLP)}
+\label{tab:baseline_results}
+\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+\textbf{Category} & \textbf{Accuracy} & \textbf{Precision} & \textbf{Recall} & \textbf{F1 Score} & \textbf{F1 Score} \\
+ & & & & \textbf{(Macro)} & \textbf{(Weighted)} \\
+\hline
+Boredom & 32.91\% & 37.76\% & 25.88\% & 14.53\% & 18.62\% \\
+\hline
+Engagement & 51.89\% & 38.67\% & 26.46\% & 19.97\% & 36.45\% \\
+\hline
+Confusion & 69.47\% & 29.19\% & 25.43\% & 21.54\% & 57.75\% \\
+\hline
+Frustration & 78.08\% & 19.52\% & 25.00\% & 21.92\% & 68.47\% \\
+\hline
+\end{tabular}
+\end{table}
+
+Kết quả baseline cho thấy mô hình Qwen2.5-VL đầy đủ đạt hiệu năng khiêm tốn với F1-Score (Macro) dao động từ 14.53\% (Boredom) đến 21.92\% (Frustration). Điều này cho thấy cần thiết phải fine-tune thêm một bộ phân loại chuyên biệt (MLP) trên đặc trưng trích xuất từ Qwen2.5-VL để cải thiện hiệu năng cho bài toán cụ thể này.
+
+\subsection{Kết quả sau khi huấn luyện MLP}
+
+Sau khi huấn luyện bộ phân loại MLP trên đặc trưng từ Qwen2.5-VL, nhóm đã thử nghiệm nhiều cấu hình khác nhau. Bảng \ref{tab:summary_results} tổng hợp kết quả trên tập Test cho các cấu hình tốt nhất của từng trạng thái cảm xúc (dựa trên F1-Score cao nhất).
+
+\begin{table}[H]
+\centering
+\caption{Kết quả tổng hợp của các cấu hình tốt nhất cho từng trạng thái}
+\label{tab:summary_results}
+\begin{tabular}{|l|l|c|c|c|c|}
+\hline
+\textbf{Trạng thái} & \textbf{Cấu hình} & \textbf{Accuracy} & \textbf{Precision} & \textbf{Recall} & \textbf{F1-Score} \\
+\hline
+Boredom & True\_512\_0.3 (Ep.16) & 39.87\% & 0.3004 & 0.3010 & \textbf{0.2873} \\
+\hline
+Engagement & True\_512\_0 (Ep.42) & 49.88\% & 0.3013 & 0.2684 & \textbf{0.2680} \\
+\hline
+Confusion & True\_512\_0 (Ep.31) & 69.29\% & 0.4062 & 0.2671 & \textbf{0.2456} \\
+\hline
+Frustration & True\_512\_0 (Ep.42) & 76.98\% & 0.2735 & 0.2528 & \textbf{0.2309} \\
+\hline
+\end{tabular}
+\end{table}
+
+\noindent\textit{Chú thích cấu hình:} \texttt{[Facial\_Augment]\_[HiddenDim]\_[Dropout]} \\
+(Ví dụ: \texttt{True\_512\_0.3} nghĩa là có Augmentation, Hidden Dim 512, Dropout 0.3).
+
+\subsection{Phân tích kết quả}
+
+\subsubsection{So sánh Baseline và MLP}
+So với kết quả baseline (mô hình Qwen2.5-VL đầy đủ), việc huấn luyện thêm bộ phân loại MLP đã mang lại sự cải thiện đáng kể:
+
+\begin{itemize}
+    \item \textbf{Boredom:} F1-Score (Macro) tăng từ 14.53\% lên \textbf{28.73\%} (tăng 97.7\%), cho thấy MLP đã học được cách phân biệt tốt hơn các mức độ chán nản.
+    \item \textbf{Engagement:} F1-Score (Macro) tăng từ 19.97\% lên \textbf{26.80\%} (tăng 34.2\%).
+    \item \textbf{Confusion:} F1-Score (Macro) tăng từ 21.54\% lên \textbf{24.56\%} (tăng 14.0\%).
+    \item \textbf{Frustration:} F1-Score (Macro) tăng từ 21.92\% lên \textbf{23.09\%} (tăng 5.3\%).
+\end{itemize}
+
+Kết quả này chứng minh rằng việc sử dụng Qwen2.5-VL làm feature extractor kết hợp với MLP classifier là một chiến lược hiệu quả cho bài toán nhận diện cảm xúc học tập.
+
+\subsubsection{Hiệu quả của Augmentation}
+Hầu hết các kết quả tốt nhất đều đến từ cấu hình có sử dụng dữ liệu tăng cường (\texttt{True}), cho thấy việc bổ sung dữ liệu ngoại lai giúp cải thiện khả năng tổng quát hóa của mô hình.
+
+\subsubsection{Vấn đề mất cân bằng}
+\begin{itemize}
+    \item \textbf{Frustration:} Có Accuracy rất cao (77-78\%) nhưng F1-Score thấp (0.21-0.23). Nhìn vào Confusion Matrix (trong logs), mô hình dự đoán hầu hết là lớp 0 (không bực bội), dẫn đến Recall của lớp dương (lớp 1,2,3) rất thấp.
+    
+    \item \textbf{Boredom:} Có Accuracy thấp nhất ($\sim$40\%) nhưng F1-Score lại cao nhất (0.28). Điều này cho thấy mô hình đã "dám" dự đoán các lớp thiểu số nhiều hơn, chấp nhận Accuracy thấp để đổi lấy khả năng phát hiện đúng lớp hiếm tốt hơn.
+\end{itemize}
+
+\subsubsection{So sánh Dropout}
+Dropout thấp (0 hoặc 0.3) thường cho kết quả tốt hơn Dropout cao (0.5), có thể do mô hình (MLP head) chưa đủ sâu để cần regularization mạnh, hoặc đặc trưng từ Qwen2.5 đã đủ tốt.
+
+\subsection{Kết quả chi tiết theo từng cảm xúc}
+
+% Include detailed subsections for each emotion
+\input{sections/04_experiments_frustration}
+\input{sections/04_experiments_confusion}
+\input{sections/04_experiments_engagement}
+\input{sections/04_experiments_boredom}

@@ -1,0 +1,72 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[vietnamese]{babel}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{subcaption}
+\usepackage{url}
+
+% Page setup
+\geometry{
+    left=25mm,
+    right=25mm,
+    top=25mm,
+    bottom=25mm
+}
+
+% Hyperlink setup
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+
+\title{\textbf{BÁO CÁO CUỐI KỲ - PROJECT DATA SCIENCE} \\
+\large{Nhận diện Mức độ Tập trung và Cảm xúc của Người học Trực tuyến \\ 
+sử dụng Mô hình Ngôn ngữ-Thị giác Lớn (VLM)}}
+
+\author{
+    \textbf{Nhóm:} 33 \\
+    \textbf{Thành viên:} \\
+    1. Nguyễn Hoàng Lâm - 20225028 \\
+    2. Đặng Thanh Tùng - 20225111 \\
+    \\
+    \textbf{Giảng viên hướng dẫn:} PGS. TS. Phạm Văn Hải
+}
+
+\begin{document}
+
+\maketitle
+\newpage
+
+\tableofcontents
+\newpage
+
+% Abstract
+\input{sections/00_abstract}
+
+% Introduction
+\input{sections/01_introduction}
+
+% Methodology
+\input{sections/03_methodology}
+
+% Experiments and Results
+\input{sections/04_experiments}
+
+% Conclusion
+\input{sections/05_conclusion}
+
+% References
+\bibliographystyle{plain}
+\bibliography{sections/references}
+
+\end{document}

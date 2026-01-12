@@ -1,0 +1,15 @@
+\section{CÁC NGHIÊN CỨU LIÊN QUAN (RELATED WORK)}
+
+Các phương pháp truyền thống trong nhận diện cảm xúc thường sử dụng các mạng Convolutional Neural Networks (CNN) như ResNet, VGG để trích xuất đặc trưng từ khuôn mặt, kết hợp với RNN/LSTM để mô hình hóa sự phụ thuộc thời gian (Temporal dependency).
+
+\begin{itemize}
+    \item \textbf{Gupta et al. (2016)}~\cite{gupta2016daisee} giới thiệu DAiSEE và sử dụng InceptionResNetV2, đạt kết quả cơ sở (baseline) nhưng gặp khó khăn lớn với các lớp thiểu số.
+    
+    \item \textbf{C3D \& I3D:} Các mô hình 3D CNN được áp dụng để bắt đặc trưng không gian-thời gian đồng thời.
+    
+    \item \textbf{Vision Transformers (ViT):} Gần đây, ViT đã cho thấy hiệu quả vượt trội trong việc nắm bắt quan hệ toàn cục của ảnh.
+    
+    \item \textbf{Vision-Language Models:} Wang et al.~\cite{wang2025vlm} đã sử dụng các mô hình ngôn ngữ-thị giác để phát hiện cảm xúc học tập của sinh viên thông qua biểu cảm khuôn mặt, cho thấy tiềm năng của VLM trong bài toán này.
+\end{itemize}
+
+Khác với các phương pháp trên, nhóm đề xuất sử dụng \textbf{Qwen2.5-VL}~\cite{qwen2024qwen25vl}, một mô hình VLM hiện đại, có khả năng hiểu sâu sắc nội dung hình ảnh và mối quan hệ ngữ nghĩa, để trích xuất đặc trưng, kỳ vọng mang lại biểu diễn tốt hơn cho các trạng thái cảm xúc tinh tế.

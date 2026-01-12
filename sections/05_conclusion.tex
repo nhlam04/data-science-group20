@@ -1,0 +1,75 @@
+\section{KẾT LUẬN (CONCLUSION)}
+
+\subsection{Kết luận}
+Nhóm đã xây dựng thành công pipeline nhận diện cảm xúc sử dụng Qwen2.5-VL. Kết quả cho thấy mô hình ngôn ngữ-thị giác lớn có tiềm năng trong việc trích xuất đặc trưng cho bài toán này. Tuy nhiên, sự mất cân bằng dữ liệu cực đoan của DAiSEE vẫn là rào cản lớn nhất, khiến F1-Score tổng thể chưa cao. Accuracy cao ở một số lớp chủ yếu là do mô hình học theo phân phối của lớp đa số.
+
+Qua quá trình thực nghiệm với nhiều cấu hình khác nhau, nhóm đã rút ra một số kết luận quan trọng:
+
+\begin{itemize}
+    \item Việc tăng cường dữ liệu bằng ảnh khuôn mặt tĩnh giúp cải thiện hiệu năng tổng thể của mô hình, đặc biệt là đối với các lớp thiểu số.
+    \item Dropout với tỷ lệ thấp (0 hoặc 0.3) cho kết quả tốt hơn dropout cao (0.5), cho thấy đặc trưng từ Qwen2.5-VL đã khá tốt và không cần regularization mạnh.
+    \item Mô hình đạt hiệu quả khác nhau trên các trạng thái cảm xúc: tốt nhất trên Boredom (F1=0.2873), tiếp theo là Engagement (F1=0.2680), Confusion (F1=0.2456), và thấp nhất là Frustration (F1=0.2309).
+    \item Nhóm thành công không chỉ cải thiện khả năng phân loại mà còn làm giảm độ phức tạp của mô hình. Mô hình VLM gốc bao gồm cả encoder và decoder, trong khi nhóm chỉ sử dụng encoder kết hợp thêm MLP mà vẫn đạt được kết quả cao hơn mô hình gốc.
+\end{itemize}
+
+\subsection{Hướng phát triển}
+Để cải thiện hiệu năng của mô hình trong tương lai, nhóm đề xuất các hướng nghiên cứu sau:
+
+\begin{itemize}
+    \item \textbf{Hàm mất mát chuyên dụng:} Áp dụng \textbf{Focal Loss} hoặc \textbf{Weighted Cross-Entropy} để phạt nặng hơn khi dự đoán sai các lớp thiểu số, giúp mô hình chú ý nhiều hơn đến các mẫu khó và lớp hiếm.
+    
+    \item \textbf{Fine-tuning Qwen:} Thay vì chỉ dùng làm Feature Extractor (đóng băng), có thể fine-tune nhẹ (dùng LoRA - Low-Rank Adaptation) các lớp cuối của Qwen2.5-VL để thích nghi tốt hơn với miền dữ liệu khuôn mặt và cảm xúc học tập.
+    
+    \item \textbf{Temporal Modeling:} Sử dụng LSTM hoặc Transformer Encoder thay vì Mean Pooling đơn giản để nắm bắt diễn biến cảm xúc theo thời gian tốt hơn. Điều này có thể giúp mô hình hiểu được sự chuyển đổi giữa các trạng thái cảm xúc trong quá trình học.
+    
+    \item \textbf{Ensemble Methods:} Kết hợp nhiều mô hình với các cấu hình khác nhau để tận dụng ưu điểm của từng mô hình, có thể cải thiện độ robust và hiệu năng tổng thể.
+    
+    \item \textbf{Multi-task Learning:} Huấn luyện đồng thời nhiều tác vụ liên quan (ví dụ: nhận diện cảm xúc cơ bản, phát hiện điểm chú ý, v.v.) để cải thiện khả năng học biểu diễn của mô hình.
+\end{itemize}
+
+\subsection{Đóng góp của đề tài}
+
+Đề tài này đóng góp vào lĩnh vực E-learning thông minh và nhận diện cảm xúc học tập bằng các khía cạnh sau:
+
+\subsubsection{Đóng góp về phương pháp}
+\begin{itemize}
+    \item \textbf{Ứng dụng VLM cho bài toán nhận diện cảm xúc học tập:} Đề xuất phương pháp sử dụng mô hình ngôn ngữ-thị giác lớn tiên tiến (Qwen2.5-VL-7B-Instruct) làm feature extractor cho bài toán nhận diện 4 trạng thái cảm xúc học tập (Boredom, Engagement, Confusion, Frustration). Đây là một hướng tiếp cận mới so với các phương pháp CNN truyền thống.
+    
+    \item \textbf{Kiến trúc hai giai đoạn hiệu quả:} Thiết kế pipeline kết hợp giữa Qwen2.5-VL (đóng băng) và MLP classifier, giúp tận dụng khả năng trích xuất đặc trưng mạnh mẽ của VLM mà vẫn giữ được tính khả thi về mặt tính toán và thời gian huấn luyện.
+    
+    \item \textbf{Chiến lược tăng cường dữ liệu đa nguồn:} Đề xuất và thực hiện phương pháp tăng cường dữ liệu bằng cách kết hợp dữ liệu video DAiSEE với ảnh khuôn mặt tĩnh từ Mendeley Facial Expression Dataset (3,920 samples bổ sung), giúp cải thiện khả năng học của mô hình trên các lớp thiểu số.
+\end{itemize}
+
+\subsubsection{Đóng góp về kết quả thực nghiệm}
+\begin{itemize}
+    \item \textbf{Cải thiện hiệu năng đáng kể:} So với baseline Qwen2.5-VL đầy đủ, phương pháp đề xuất đạt được sự cải thiện vượt trội:
+    \begin{itemize}
+        \item Boredom: F1-Score tăng từ 14.53\% lên 28.73\% (tăng 97.7\%)
+        \item Engagement: F1-Score tăng từ 19.97\% lên 26.80\% (tăng 34.2\%)
+        \item Confusion: F1-Score tăng từ 21.54\% lên 24.56\% (tăng 14.0\%)
+        \item Frustration: F1-Score tăng từ 21.92\% lên 23.09\% (tăng 5.3\%)
+    \end{itemize}
+    
+    \item \textbf{Tối ưu hóa mô hình:} Chứng minh rằng việc sử dụng encoder của VLM kết hợp MLP đơn giản (giảm độ phức tạp) vẫn đạt hiệu năng cao hơn mô hình VLM đầy đủ, mở ra hướng nghiên cứu về tối ưu hóa mô hình lớn cho các tác vụ cụ thể.
+    
+    \item \textbf{Phân tích toàn diện về siêu tham số:} Thực hiện nghiên cứu thực nghiệm có hệ thống với nhiều cấu hình khác nhau (Dropout: 0, 0.3, 0.5; Augmentation: True/False) cho cả 4 trạng thái cảm xúc, cung cấp insights về ảnh hưởng của từng siêu tham số.
+\end{itemize}
+
+\subsubsection{Đóng góp về dữ liệu và tài nguyên}
+\begin{itemize}
+    \item \textbf{Phân tích chi tiết về mất cân bằng dữ liệu:} Cung cấp phân tích định lượng về sự mất cân bằng của tập DAiSEE (ví dụ: Frustration Level 0 chiếm 78.07\%, Level 3 chỉ 0.80\%), giúp các nghiên cứu sau nhận thức được thách thức và thiết kế giải pháp phù hợp.
+    
+    \item \textbf{Quy trình xử lý dữ liệu đa phương thức:} Xây dựng pipeline xử lý kết hợp dữ liệu video (DAiSEE với sampling 1 FPS) và ảnh tĩnh (256×256×3 pixels), tạo embeddings thống nhất thông qua Qwen2.5-VL.
+    
+    \item \textbf{Mã nguồn mở và kết quả tái tạo được:} Công bố toàn bộ mã nguồn, kết quả thực nghiệm chi tiết, và các biểu đồ phân tích trên GitHub, giúp cộng đồng nghiên cứu có thể tái tạo và mở rộng công trình.
+\end{itemize}
+
+\subsubsection{Đóng góp về insights và hướng nghiên cứu}
+\begin{itemize}
+    \item \textbf{Đánh giá khả năng của VLM:} Chứng minh tiềm năng và hạn chế của mô hình ngôn ngữ-thị giác lớn trong bài toán nhận diện cảm xúc tinh tế, đặc biệt trong điều kiện dữ liệu mất cân bằng nghiêm trọng.
+    
+    \item \textbf{Khuyến nghị cho ứng dụng thực tế:} Cung cấp các insights về trade-off giữa accuracy và khả năng phát hiện lớp thiểu số, giúp các ứng dụng E-learning thực tế lựa chọn cấu hình phù hợp với mục tiêu cụ thể.
+    
+    \item \textbf{Baseline cho nghiên cứu tương lai:} Thiết lập baseline với phương pháp VLM trên DAiSEE, mở đường cho các nghiên cứu tiếp theo về fine-tuning, ensemble, hoặc các kiến trúc temporal modeling phức tạp hơn.
+\end{itemize}
+

@@ -1,0 +1,42 @@
+\section{PHƯƠNG PHÁP ĐỀ XUẤT (METHODOLOGY)}
+
+Mô hình tổng thể bao gồm hai giai đoạn chính: Trích xuất đặc trưng (Feature Extraction) và Phân loại (Classification).
+
+\subsection{Mô hình nền tảng (Backbone): Qwen2.5-VL}
+Nhóm sử dụng \texttt{Qwen2.5-VL-7B-Instruct} làm backbone. Đây là mô hình đa phương thức mạnh mẽ, được huấn luyện trên lượng dữ liệu khổng lồ, có khả năng chiết xuất các đặc trưng thị giác phong phú và có ý nghĩa ngữ nghĩa cao hơn so với các CNN thông thường.
+
+\begin{itemize}
+    \item \textbf{Input:} Video đầu vào được lấy mẫu (sample) với tốc độ \textbf{1 FPS}.
+    \item \textbf{Feature Extraction:} Mỗi khung hình được đưa qua Qwen2.5-VL để lấy vector embedding (kích thước lớn).
+    \item \textbf{Temporal Pooling:} Các vector đặc trưng của các khung hình trong cùng một clip được gộp (Mean Pooling) để tạo thành một vector đại diện duy nhất cho video đó.
+\end{itemize}
+
+\subsection{Bộ phân loại (Classifier)}
+Vector đặc trưng sau khi gộp được đưa vào một mạng MLP đơn giản để phân loại:
+
+\begin{itemize}
+    \item \textbf{Kiến trúc:} \texttt{Linear(Input\_Dim $\to$ 512) $\to$ ReLU $\to$ Dropout $\to$ Linear(512 $\to$ 256) $\to$ ReLU $\to$ Dropout $\to$ Linear(256 $\to$ 4)}.
+    \item \textbf{Dropout:} Được sử dụng để tránh overfitting, với các tỷ lệ thử nghiệm là 0, 0.3, và 0.5.
+\end{itemize}
+
+\subsection{Tăng cường dữ liệu (Data Augmentation)}
+Do tập DAiSEE có sự mất cân bằng dữ liệu rất lớn (lớp "Engagement" chiếm đa số, "Confusion"/"Boredom" rất ít), nhóm đã thực hiện tăng cường dữ liệu bằng cách sử dụng thêm các tập dữ liệu khuôn mặt tĩnh (Facial Expression Data) từ các nguồn bên ngoài (như FER-2013 hoặc Mendeley Data). Các ảnh tĩnh này được gán nhãn tương ứng với 4 trạng thái của DAiSEE để bổ sung mẫu cho quá trình huấn luyện.
+
+\subsection{Hàm mất mát (Loss Function)}
+Sử dụng \textbf{Cross-Entropy Loss} tiêu chuẩn:
+\[ L = -\frac{1}{N} \sum_{i=1}^{N} \sum_{c=0}^{M-1} y_{i,c} \log(p_{i,c}) \]
+Trong đó $N$ là số mẫu, $M=4$ là số lớp.
+
+\subsection{Siêu tham số (Hyperparameters)}
+Các tham số cấu hình cho quá trình huấn luyện:
+
+\begin{itemize}
+    \item \textbf{Model Name:} Multi-Layer Perceptron (MLP)
+    \item \textbf{Hidden Dimension:} 512
+    \item \textbf{Batch Size:} 32
+    \item \textbf{Learning Rate:} $1 \times 10^{-3}$ (0.001)
+    \item \textbf{Optimizer:} Adam
+    \item \textbf{Scheduler:} ReduceLROnPlateau (Patience=5, Factor=0.5)
+    \item \textbf{Epochs:} 50
+    \item \textbf{Dropout:} Thay đổi [0, 0.3, 0.5] để tìm cấu hình tối ưu
+\end{itemize}
