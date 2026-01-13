@@ -1,0 +1,138 @@
+\section{KẾT QUẢ ĐẠT ĐƯỢC (DEPLOYMENT RESULTS)}
+
+\subsection{Triển khai ứng dụng thực tế}
+
+Sau quá trình huấn luyện và đánh giá mô hình, nhóm đã thành công triển khai hệ thống nhận diện cảm xúc học tập thời gian thực thông qua nền tảng Hugging Face Inference Endpoints. Hệ thống cho phép người dùng trải nghiệm trực tiếp khả năng nhận diện cảm xúc từ webcam ngay trên trình duyệt web.
+
+\subsubsection{Kiến trúc triển khai}
+
+Hệ thống được xây dựng theo mô hình Client-Server với các thành phần chính:
+
+\begin{itemize}
+    \item \textbf{Backend API:} Triển khai trên Hugging Face Inference Endpoints
+    \begin{itemize}
+        \item Mô hình Qwen2.5-VL-7B-Instruct (feature extractor)
+        \item 4 mô hình MLP classifier đã huấn luyện (Boredom, Engagement, Confusion, Frustration)
+        \item Custom handler xử lý inference cho cả ảnh tĩnh và video
+        \item Tự động scale theo nhu cầu sử dụng
+    \end{itemize}
+    
+    \item \textbf{Frontend Web Application:}
+    \begin{itemize}
+        \item Giao diện web responsive, thân thiện người dùng
+        \item Hỗ trợ truy cập webcam và xử lý ảnh thời gian thực
+        \item Hiển thị kết quả dự đoán cho 4 trạng thái cảm xúc với confidence scores
+        \item Cập nhật kết quả mỗi 2 giây
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Luồng xử lý}
+
+Quy trình nhận diện cảm xúc trong ứng dụng thực tế diễn ra như sau:
+
+\begin{enumerate}
+    \item \textbf{Capture frame:} Hệ thống thu thập hình ảnh từ webcam của người dùng
+    \item \textbf{Preprocessing:} Chuyển đổi frame thành định dạng base64 để truyền tải
+    \item \textbf{API Request:} Gửi ảnh đến Hugging Face Inference Endpoint qua HTTPS
+    \item \textbf{Feature Extraction:} Qwen2.5-VL trích xuất embedding từ ảnh đầu vào
+    \item \textbf{Classification:} 4 MLP classifiers dự đoán độc lập cho từng trạng thái cảm xúc
+    \item \textbf{Response:} Trả về kết quả với level (0-3), confidence và probability distribution
+    \item \textbf{Display:} Frontend hiển thị kết quả trực quan với biểu đồ và màu sắc
+\end{enumerate}
+
+\subsection{Giao diện ứng dụng}
+
+Hình~\ref{fig:default_page} và Hình~\ref{fig:detection_active} minh họa giao diện của ứng dụng web trong các trạng thái khác nhau.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/default_page.png}
+    \caption{Giao diện mặc định khi mở ứng dụng - sẵn sàng bắt đầu phát hiện}
+    \label{fig:default_page}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/detection_active.png}
+    \caption{Giao diện khi đang hoạt động - hiển thị kết quả nhận diện 4 trạng thái cảm xúc với confidence scores và probability distribution cho mỗi level}
+    \label{fig:detection_active}
+\end{figure}
+
+Giao diện ứng dụng được thiết kế với các đặc điểm nổi bật:
+
+\begin{itemize}
+    \item \textbf{Hiển thị video webcam:} Stream thời gian thực từ camera của người dùng
+    \item \textbf{Emotion cards:} Mỗi trạng thái cảm xúc được hiển thị trong một card riêng biệt với:
+    \begin{itemize}
+        \item Icon biểu cảm tương ứng
+        \item Level dự đoán (0-3) được làm nổi bật
+        \item Confidence score (phần trăm)
+        \item Probability bars cho cả 4 levels để người dùng thấy phân phối xác suất
+    \end{itemize}
+    \item \textbf{Controls:} Nút Start/Stop để kiểm soát quá trình phát hiện
+    \item \textbf{Status indicator:} Hiển thị trạng thái hệ thống (Idle, Analyzing, Detection active)
+\end{itemize}
+
+\subsection{Hiệu năng triển khai}
+
+Hệ thống triển khai đạt được các chỉ số hiệu năng sau:
+
+\begin{itemize}
+    \item \textbf{Latency:} 1-3 giây cho mỗi inference (bao gồm network overhead)
+    \item \textbf{Update frequency:} Cập nhật kết quả mỗi 2 giây
+    \item \textbf{Availability:} 99.9\% uptime nhờ Hugging Face Inference Endpoints
+    \item \textbf{Scalability:} Tự động scale theo số lượng requests
+    \item \textbf{GPU Memory:} Khoảng 18-22 GB VRAM khi đang hoạt động
+\end{itemize}
+
+\subsection{Lợi ích của việc triển khai}
+
+Việc triển khai thành công ứng dụng web mang lại nhiều giá trị thực tiễn:
+
+\begin{itemize}
+    \item \textbf{Khả năng tiếp cận:} Người dùng có thể trải nghiệm ngay trên trình duyệt mà không cần cài đặt
+    \item \textbf{Demonstration:} Minh chứng rõ ràng cho khả năng ứng dụng của mô hình trong thực tế
+    \item \textbf{Real-time feedback:} Giúp người học nhận biết trạng thái cảm xúc của mình trong quá trình học
+    \item \textbf{Research validation:} Cho phép thu thập feedback thực tế để cải thiện mô hình
+    \item \textbf{Scalable infrastructure:} Nền tảng Hugging Face cho phép mở rộng dễ dàng khi cần
+\end{itemize}
+
+\subsection{Thách thức và giải pháp}
+
+Trong quá trình triển khai, nhóm đã gặp và giải quyết các thách thức sau:
+
+\begin{itemize}
+    \item \textbf{Model size:} Qwen2.5-VL-7B có kích thước lớn (~15 GB)
+    \begin{itemize}
+        \item Giải pháp: Sử dụng FP16 precision và Hugging Face model caching
+    \end{itemize}
+    
+    \item \textbf{Inference latency:} Thời gian xử lý ban đầu khá cao
+    \begin{itemize}
+        \item Giải pháp: Tối ưu hóa preprocessing, sử dụng GPU acceleration
+    \end{itemize}
+    
+    \item \textbf{Network bandwidth:} Truyền tải ảnh qua internet
+    \begin{itemize}
+        \item Giải pháp: Nén ảnh với JPEG quality 85\%, sử dụng base64 encoding
+    \end{itemize}
+    
+    \item \textbf{Browser compatibility:} Hỗ trợ webcam trên nhiều trình duyệt
+    \begin{itemize}
+        \item Giải pháp: Sử dụng Web APIs chuẩn (MediaDevices.getUserMedia)
+    \end{itemize}
+\end{itemize}
+
+\subsection{Hướng phát triển cho deployment}
+
+Để cải thiện và mở rộng hệ thống triển khai, nhóm đề xuất:
+
+\begin{itemize}
+    \item \textbf{Model optimization:} Quantization (INT8) để giảm latency và memory footprint
+    \item \textbf{Edge deployment:} Nghiên cứu triển khai trên thiết bị edge (mobile, embedded)
+    \item \textbf{Multi-user support:} Tối ưu hóa để hỗ trợ nhiều người dùng đồng thời
+    \item \textbf{Analytics dashboard:} Thêm tính năng thống kê và phân tích xu hướng cảm xúc theo thời gian
+    \item \textbf{Integration:} Tích hợp vào các nền tảng e-learning phổ biến (Moodle, Google Classroom)
+\end{itemize}
+
+Việc triển khai thành công hệ thống web-based emotion recognition chứng minh tính khả thi của việc ứng dụng Vision-Language Models vào bài toán thực tế trong lĩnh vực giáo dục trực tuyến.
