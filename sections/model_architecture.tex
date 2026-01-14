@@ -1,0 +1,55 @@
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[
+        node distance=1.5cm,
+        box/.style={rectangle, draw, minimum width=3cm, minimum height=1cm, align=center, fill=blue!10},
+        feature/.style={rectangle, draw, minimum width=3cm, minimum height=0.8cm, align=center, fill=green!10},
+        output/.style={rectangle, draw, minimum width=2.5cm, minimum height=0.8cm, align=center, fill=orange!10},
+        arrow/.style={->, >=stealth, thick}
+    ]
+    
+    % Input layer
+    \node[box] (input) {Input\\Video/Image\\(1 FPS sampling)};
+    
+    % Qwen encoder
+    \node[box, below=of input, minimum height=2cm, fill=purple!10] (qwen) {
+        \textbf{Qwen2.5-VL-7B-Instruct}\\
+        Vision-Language Model\\
+        (Frozen Encoder)
+    };
+    
+    % Feature vector
+    \node[feature, below=of qwen] (features) {Feature Embeddings\\(3584-dim vector)};
+    
+    % MLP classifiers
+    \node[box, below left=1.5cm and 2cm of features, minimum width=2.5cm] (mlp1) {MLP\\Classifier 1\\(512 hidden)};
+    \node[box, below left=1.5cm and -1.5cm of features, minimum width=2.5cm] (mlp2) {MLP\\Classifier 2\\(512 hidden)};
+    \node[box, below right=1.5cm and -1.5cm of features, minimum width=2.5cm] (mlp3) {MLP\\Classifier 3\\(512 hidden)};
+    \node[box, below right=1.5cm and 2cm of features, minimum width=2.5cm] (mlp4) {MLP\\Classifier 4\\(512 hidden)};
+    
+    % Outputs
+    \node[output, below=of mlp1] (out1) {Boredom\\(Level 0-3)};
+    \node[output, below=of mlp2] (out2) {Engagement\\(Level 0-3)};
+    \node[output, below=of mlp3] (out3) {Confusion\\(Level 0-3)};
+    \node[output, below=of mlp4] (out4) {Frustration\\(Level 0-3)};
+    
+    % Arrows
+    \draw[arrow] (input) -- (qwen);
+    \draw[arrow] (qwen) -- (features);
+    \draw[arrow] (features) -| (mlp1);
+    \draw[arrow] (features) -| (mlp2);
+    \draw[arrow] (features) -| (mlp3);
+    \draw[arrow] (features) -| (mlp4);
+    \draw[arrow] (mlp1) -- (out1);
+    \draw[arrow] (mlp2) -- (out2);
+    \draw[arrow] (mlp3) -- (out3);
+    \draw[arrow] (mlp4) -- (out4);
+    
+    % Labels
+    \node[left=0.3cm of qwen, text width=2cm, align=right] {\small Pre-trained\\weights\\(frozen)};
+    \node[left=0.3cm of mlp1, text width=2cm, align=right] {\small Trainable\\layers};
+    
+    \end{tikzpicture}
+    \caption{Kiến trúc mô hình sử dụng Qwen2.5-VL làm feature extractor kết hợp với 4 MLP classifiers độc lập cho từng trạng thái cảm xúc}
+    \label{fig:model_architecture}
+\end{figure}
